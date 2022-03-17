@@ -1,13 +1,18 @@
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
 
 def html_scraper():
     data = []
 
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'}
     """     url = input("Enter the Metacritic URL: ") """
-    page_request = requests.get('https://www.metacritic.com/game/playstation-5/elden-ring/user-reviews', headers=headers)
+    url = 'https://www.metacritic.com/game/playstation-5/elden-ring/user-reviews'
+    page_request = requests.get(url, headers=headers)
 
     html_page = BeautifulSoup(page_request.text, 'html.parser')
 
