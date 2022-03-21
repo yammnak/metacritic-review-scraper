@@ -5,9 +5,12 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 
 def single_page_html_scraper(url, data):
-    driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()))
+    options = Options()
+    options.headless = True
+    driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options = options)
     driver.get(url)
     driver.implicitly_wait(1)
     button = driver.find_elements(By.XPATH, "//span/span[contains(.,'Expand')]")
@@ -55,4 +58,4 @@ def html_scraper():
         single_page_html_scraper(base_url, data)
 
     df = pd.DataFrame(data, columns=['game', 'date', 'metacritic_score', 'review', 'thumbs_ups', 'total_thumbs'])
-    df.to_csv(file_name +  ".csv")
+    df.to_csv(file_name +  ".csv", index = False)
