@@ -53,7 +53,10 @@ def single_page_html_scraper(url, data, platform):
     button = driver.find_elements(By.XPATH, "//span/span[contains(.,'Expand')]")
 
     for button in button:
-        button.click()
+        try:
+            button.click()
+        except Exception:
+            pass
 
     html_page = BeautifulSoup(driver.page_source, 'html.parser')
 
